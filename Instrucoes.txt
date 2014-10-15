@@ -1,0 +1,14 @@
+Trabalho 2 - Redes - Trevelin
+Programação usando Sockets
+
+Descrição: Considere um sistema P2P baseado  em  SuperNodos  onde os SuperNodos  operam em modo DHT.   Os clientes se associam a um SuperNodo e  para  gravarem ou recuperarem um arquivo, se comunicam com seu  SuperNodo que busca, via DHT, onde está ou para onde vai  o arquivo de conteúdo.
+Desenvolva  tal sistema, utilizando sockets.  Implemente e  teste usando pelo menos 3 Supernodos e dois clientes, em SuperNodos diferentes.
+Devem ser implementados:  O modo de conexão com um SuperNodo, o modo de localização de um arquivo, os modos de upload e download, e o modulo de desconexão,  tanto no SuperNodo  quanto no Cliente.
+Deve ser proposta forma de  configuração do sistema (entrada e saída de novo SuperNodo na arquitetura). 
+Deve ser pensado num modelo  simples de DHT (Kurose)  para implementar os ID dos arquivos e sua localização  a partir de seu nome. 
+O uso de Sockets deixa transparente  a rede de  sobreposição  
+
+
+Criação de Nós necessários
+Cada Nó estabelece conexão servidor-cliente entre si
+Dividir o Range de cada nó
