@@ -16,10 +16,38 @@ import java.util.HashMap;
 public class DHT {
     
     
-    private HashMap<String, File> localValues;
+    private HashMap<String, File> valoresHash;
     private int numMax; //Range Máximo da Tabela Hash
     private int numMin; //Range Mínimo da Tabela Hash
     private ArrayList<RunningNode> NodosAtivos;
+    
+    public DHT(){
+        valoresHash = new HashMap<>();
+        numMax = 0;
+        numMin = 0;
+        NodosAtivos = null;
+        
+    }
+    
+    public int getnumMax(){
+        return numMax;
+    }
+    
+    public int getnumMin(){
+        return numMin;
+    }
+    
+    public void setnumMax(int valor){
+        numMax = valor;
+    }
+    
+    public void setnumMin(int valor){
+        numMin = valor;
+    }
+    
+    public void setNodosAtivos(ArrayList<RunningNode> nListaNodos){
+        NodosAtivos = nListaNodos;    
+    }
     
     public String Localizar(String filename)
     {
@@ -33,15 +61,42 @@ public class DHT {
         }
         else
         {
-            for(int i = 0; i < nodeList.size(); i++)
+            for(int i = 0; i < NodosAtivos.size(); i++)
             {
-                if(hash> nodeList.get(i).getRemoteLowerBound() && hash < nodeList.get(i).getRemoteUpperBound())
-                    return nodeList.get(i).getIP();
+                if(hash> NodosAtivos.get(i).getRemoteLowerBound() && hash < NodosAtivos.get(i).getRemoteUpperBound())
+                    return NodosAtivos.get(i).getIP();
             }
         }
         return null;
     }
     
+     public File getArquivo(String filename)
+    {
+        return valoresHash.get(filename);
+    }
+    public boolean adicionaArq(File nArquivo)
+    {
+        if(valoresHash.put(nArquivo.getName(), nArquivo) == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public ArrayList<String> getNomeArq()
+    {
+        return new ArrayList<>(valoresHash.keySet());
+    }
+    public ArrayList<File> getFiles()
+    {
+        return new ArrayList<>(valoresHash.values());
+    }
+    public void removeFile(String filename)
+    {
+        valoresHash.remove(filename);
+    }
     
     
     

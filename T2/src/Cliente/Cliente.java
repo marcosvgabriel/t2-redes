@@ -19,7 +19,8 @@ public class Cliente {
         String numeroIP = null;
         int numeroPorta = 6601;
         String opcao = "9";
-        String caminho;
+        String caminho = "";
+        String sinal;
         boolean saida = true;
         Socket superNodoConex;
         System.out.println("Digite o número IP do SuperNodo que deseja Conectar");
@@ -69,6 +70,7 @@ public class Cliente {
           System.exit(1);   
         }
         
+        sinal = opcao;
         switch(Integer.getInteger(opcao)){
             case 1:
                 //Upload
@@ -88,7 +90,8 @@ public class Cliente {
                 FileInputStream arq_envia = new FileInputStream(arq_digitado);
                 OutputStream infoSaida = superNodoConex.getOutputStream();
                 
-                //infoSaida.write("101 - Retrive Possible File Location\n".getBytes());
+                
+                infoSaida.write(sinal.getBytes());
                 infoSaida.write((arq_digitado.getName()+"\n").getBytes());
                 
                 BufferedReader messageBuffer = new BufferedReader(new InputStreamReader(superNodoConex.getInputStream()));
