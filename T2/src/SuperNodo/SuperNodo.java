@@ -37,6 +37,10 @@ public class SuperNodo {
     {
         return tabela;
     }
+    
+    public int getId(){
+        return this.id;
+}
    
     
     public void start() throws IOException{

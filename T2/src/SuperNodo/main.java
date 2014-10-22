@@ -19,7 +19,9 @@ import java.util.Scanner;
 
 //Main para Criaçao dos SuperNodos
 public class main {
+    //private static SuperNodo nSuperNodo;
     private static SuperNodo nSuperNodo;
+    private static final List<SuperNodo> SuperNodos = new ArrayList();  
     public static void main(String args[]) throws IOException {
         int decisao;
         boolean saida = false;
@@ -35,7 +37,10 @@ public class main {
             //Esse ID devera ser verificado posteriormente se existe ou nao
             Random gerador = new Random();
             int id = gerador.nextInt(51);
+           // nSuperNodo = new SuperNodo(id);
             nSuperNodo = new SuperNodo(id);
+            SuperNodos.add(nSuperNodo); //preciso arrumar isso! nao estou conseguindo adicionar            
+            System.out.println("SuperNodo Criado! ID: " + SuperNodos.iterator()); //quero printar o valor do ID do SuperNodo
             System.out.println("SuperNodo Criado! ID: " + id);
             nSuperNodo.start();
         }
