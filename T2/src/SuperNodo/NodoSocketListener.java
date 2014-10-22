@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public class NodoSocketListener extends Thread {
     
     private ServerSocket SocketComm;
+    private RunningNode nodoNovoConex;
     private boolean saida;
     
     public NodoSocketListener(int port)
@@ -35,10 +36,13 @@ public class NodoSocketListener extends Thread {
         saida = true;
     }
     
+    public RunningNode getNodo(){
+        return nodoNovoConex;
+    }
+    
     @Override
     public void run()
     {
-        RunningNode nodoNovoConex;
         while(!saida)
         {
             try {

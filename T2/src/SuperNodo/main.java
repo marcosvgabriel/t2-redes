@@ -5,6 +5,7 @@
  */
 package SuperNodo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +20,7 @@ import java.util.Scanner;
 //Main para Criaçao dos SuperNodos
 public class main {
     private static SuperNodo nSuperNodo;
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         int decisao;
         boolean saida = false;
         
