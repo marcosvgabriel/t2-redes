@@ -7,6 +7,7 @@ package Cliente;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ public class Cliente {
         String opcao = "9";
         String caminho = "";
         String sinal;
+        String nome_arq = "";
         boolean conectou = false;
         boolean saida = false;
         Socket superNodoConex = null;
@@ -92,6 +94,15 @@ public class Cliente {
                 System.exit(1);   
                 }
                 
+                //Lembrar de Cortar String para Pegar nome do arquivo
+                //Calcular qual no sera responsavel pelo arquivo
+                
+                int hash = nome_arq.hashCode()%51;
+                System.out.println("O nome do Arquivo e: " + nome_arq + "\n");
+                System.out.println("Seu codigo Hash e: " + hash + "\n");
+                
+                
+                
                 try {
                 File arq_digitado = new File(caminho);
                 FileInputStream arq_envia = new FileInputStream(arq_digitado);
@@ -102,63 +113,7 @@ public class Cliente {
                 infoSaida.flush();
                 arq_envia.close();
                 
-                /*
-                infoSaida.write(sinal.getBytes());
-                infoSaida.write((arq_digitado.getName()+"\n").getBytes());
-                
-                BufferedReader messageBuffer = new BufferedReader(new InputStreamReader(superNodoConex.getInputStream()));
-                String lastMessage = messageBuffer.readLine();
-                
-                Socket targetNode = null;
-                
-                if(!lastMessage.matches("127.0.0.1"))
-                {
-                    targetNode = new Socket(lastMessage, Integer.parseInt(textPort.getText()));
-                    nodeOutput = targetNode.getOutputStream();
-                    messageBuffer = new BufferedReader(new InputStreamReader(targetNode.getInputStream()));
-                }
-                
-                nodeOutput.write("102 - Sending File\n".getBytes());
-                nodeOutput.write((chosenFile.getName()+"\n").getBytes());
-                nodeOutput.write((chosenFile.length()+"\n").getBytes());
-                
-                lastMessage = messageBuffer.readLine();
-                
-                switch (lastMessage)
-                {
-                    case "104 - File Accepted":
-                    {
-                        areaStatus.setText(areaStatus.getText().concat("Starting upload\n"));
-                        for(int i = 0; i < chosenFile.length(); i++)
-                        {
-                            nodeOutput.write(sendingFile.read());
-                        }
-                        nodeOutput.flush();
-                        sendingFile.close();
-                        areaStatus.setText(areaStatus.getText().concat("Upload Complete\n"));
-                        break;
-                    }
-                    case "203 - File Already Exists":
-                    {
-                        areaStatus.setText(areaStatus.getText().concat("File already exists on the system\n"));
-                        break;
-                    }
-                    case "201 - Wrong File Location":
-                    {
-                        areaStatus.setText(areaStatus.getText().concat("Trying to save file on the wrong server\n"));
-                        break;
-                    }
-                }
-                
-                if(targetNode != null)
-                {
-                    targetNode.close();
-                }
-                
-            } catch (IOException ex) {
-                Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            */
+               
                         
             } catch (IOException ex) {
                 Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
