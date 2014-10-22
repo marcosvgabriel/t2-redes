@@ -17,34 +17,25 @@ public class DHT {
     
     
     private HashMap<String, File> valoresHash;
-    private int numMax; //Range Máximo da Tabela Hash
-    private int numMin; //Range Mínimo da Tabela Hash
+    private int idresponsavel; 
     private ArrayList<RunningNode> NodosAtivos;
     
     public DHT(){
         valoresHash = new HashMap<>();
-        numMax = 0;
-        numMin = 0;
+        idresponsavel = 0;
         NodosAtivos = null;
         
     }
     
-    public int getnumMax(){
-        return numMax;
+    public DHT(int id){
+        idresponsavel = id;             
     }
     
-    public int getnumMin(){
-        return numMin;
+    public int getId(){
+        return idresponsavel;
     }
     
-    public void setnumMax(int valor){
-        numMax = valor;
-    }
-    
-    public void setnumMin(int valor){
-        numMin = valor;
-    }
-    
+       
     public void setNodosAtivos(ArrayList<RunningNode> nListaNodos){
         NodosAtivos = nListaNodos;    
     }

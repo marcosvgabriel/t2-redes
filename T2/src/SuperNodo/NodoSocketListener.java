@@ -38,20 +38,20 @@ public class NodoSocketListener extends Thread {
     @Override
     public void run()
     {
-        RemoteNode newConnection;
-        while(!exit)
+        RunningNode nodoNovoConex;
+        while(!saida)
         {
             try {
-                newConnection = new RemoteNode(SocketComm.accept());
-                newConnection.start();
+                nodoNovoConex = new RunningNode(SocketComm.accept());
+                nodoNovoConex.start();
             } catch (IOException ex) {
-                Logger.getLogger(NodeSocketListener.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NodoSocketListener.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         try {
             this.join();
         } catch (InterruptedException ex) {
-            Logger.getLogger(NodeSocketListener.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NodoSocketListener.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

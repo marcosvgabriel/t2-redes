@@ -20,6 +20,7 @@ public class SuperNodo {
     private String nIP;
     private int nPorta = 6600;
     private int cPorta;
+    private int id;
     private NodoSocketListener nodoConex;
     private NClienteSocketListener clienteConex;
     private static ArrayList<RunningNode> nodosAtivos;
@@ -30,6 +31,10 @@ public class SuperNodo {
         nIP = nnIP;
         nPorta = nnPorta;
         cPorta = ncPorta;
+    }
+    
+    public SuperNodo(int idSent){
+        id = idSent;
     }
     
     public static ArrayList<RunningNode> getnodosAtivos(){
@@ -64,25 +69,25 @@ public class SuperNodo {
         if(!nIP.isEmpty())
         {
             //Conecta ao SuperNode indicado, requisitando as informações pertinentes
-            Socket SNConex = new Socket(nIP, nPort);
-                OutputStream SNConexOutStream = existingSuperNode.getOutputStream();
-                BufferedReader existingSuperNodeInStream = new BufferedReader(new InputStreamReader(existingSuperNode.getInputStream()));
-                //Requisitando registro deste node na rede.
-                SNConexOutStream.write("001 - New Node Registration\n".getBytes());
-                SNConexOutStream.flush();
-                //Preenchendo o primeiro nó com a conexão atual
+            Socket SNConex = new Socket(nIP, nPorta);
+            OutputStream SNConexOutStream = SNConex.getOutputStream();
+            BufferedReader SNCOnexInStream = new BufferedReader(new InputStreamReader(SNConex.getInputStream()));
+            //Requisitando registro deste node na rede.
+            //SNConexOutStream.write("001 - New Node Registration\n".getBytes());
+            //SNConexOutStream.flush();
+            //Preenchendo o primeiro nó com a conexão atual
                 
-                String lastMessage = existingSuperNodeInStream.readLine();
-                String[] splitString = lastMessage.split(";");
-                knownNodes.add(new RemoteNode(existingSuperNode,Integer.parseInt(splitString[0]),
-                        Integer.parseInt(splitString[1]),
-                        Integer.parseInt(splitString[2])));
+            String lastMessage = existingSuperNodeInStream.readLine();
+            String[] splitString = lastMessage.split(";");
+            knownNodes.add(new RemoteNode(existingSuperNode,Integer.parseInt(splitString[0]),
+            Integer.parseInt(splitString[1]),
+            Integer.parseInt(splitString[2])));
                 
                 //Loop para preencher a lista de SuperNodes que foram recebidos na lista acima.
                 lastMessage = existingSuperNodeInStream.readLine();
                 int size = Integer.parseInt(lastMessage);
-                int bigNode = 0;
-                int bigCriteria = knownNodes.get(0).getCriteria();
+                //int bigNode = 0;
+                //int bigCriteria = knownNodes.get(0).getCriteria();
                 for(int i = 0; i < size; i++)
                 {
                     lastMessage = existingSuperNodeInStream.readLine();

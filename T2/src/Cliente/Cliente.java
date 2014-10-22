@@ -14,6 +14,8 @@ import java.util.logging.Logger;
  *
  * @author MarcosVinicius
  */
+
+//Main para Conexao do Cliente
 public class Cliente {
     public static void main(String args[]) {
         String numeroIP = null;
@@ -21,38 +23,43 @@ public class Cliente {
         String opcao = "9";
         String caminho = "";
         String sinal;
-        boolean saida = true;
-        Socket superNodoConex;
-        System.out.println("Digite o número IP do SuperNodo que deseja Conectar");
-        BufferedReader nIP = new BufferedReader(new InputStreamReader(System.in));   
+        boolean conectou = false;
+        boolean saida = false;
+        Socket superNodoConex = null;
         
-        //Leitura do Endereço IP
-        try {   
-          numeroIP = nIP.readLine();   
-        } catch (IOException ioe) {   
-          System.out.println("IO erro tentando ler o ip");   
-          System.exit(1);   
-        }
+        while(!conectou && !saida){
+            System.out.println("Digite o número IP do SuperNodo que deseja Conectar");
+            BufferedReader nIP = new BufferedReader(new InputStreamReader(System.in));   
         
-        //Conexao com o Nodo
-        try
-        {
-            if(numeroIP != null && numeroIP.length() > 0)
-            {
-                superNodoConex = new Socket(numeroIP, numeroPorta);
-                System.out.println("Conectado ao Nodo\n");
+            //Leitura do Endereço IP
+            try {   
+            numeroIP = nIP.readLine();   
+            } catch (IOException ioe) {   
+            System.out.println("IO erro tentando ler o ip");   
+            System.exit(1);   
             }
-            else
-            {
-                System.out.println("Nao foi possivel conectar, por favor digitar um numero IP valido\n");
-            }
-        }
-        catch(IOException ioex)
-        {
-            System.out.println("Nodo Inacancavel ou Desconhecido\n");
-        }
         
-        while(saida){
+            //Conexao com o Nodo
+            try
+            {
+                if(numeroIP != null && numeroIP.length() > 0)
+                {
+                    superNodoConex = new Socket(numeroIP, numeroPorta);
+                    System.out.println("Conectado ao Nodo\n");
+                    conectou = true;
+                }
+                else
+                {
+                
+                    System.out.println("Nao foi possivel conectar, por favor digitar um numero IP valido\n");
+                    conectou = false;
+                }
+            }
+            catch(IOException ioex)
+            {
+                System.out.println("Nodo Inacancavel ou Desconhecido\n");
+            }
+
         System.out.println("Oque deseja fazer?\n");
         System.out.println("1 - Upload\n");
         System.out.println("2 - Download\n");
@@ -89,8 +96,13 @@ public class Cliente {
                 File arq_digitado = new File(caminho);
                 FileInputStream arq_envia = new FileInputStream(arq_digitado);
                 OutputStream infoSaida = superNodoConex.getOutputStream();
+                for(int i = 0; i < arq_digitado.length(); i++){
+                    infoSaida.write(arq_envia.read());
+                }
+                infoSaida.flush();
+                arq_envia.close();
                 
-                
+                /*
                 infoSaida.write(sinal.getBytes());
                 infoSaida.write((arq_digitado.getName()+"\n").getBytes());
                 
@@ -146,8 +158,11 @@ public class Cliente {
             } catch (IOException ex) {
                 Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-                
+            */
+                        
+            } catch (IOException ex) {
+                Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            }                            
             break;
             case 2:
                 //Dowload
@@ -155,12 +170,13 @@ public class Cliente {
             break;    
             case 0:
                 //Sair e Desconectar
+                saida = true;
             break;    
        
         }
              
         
         }
-    }
     
+    }
 }
