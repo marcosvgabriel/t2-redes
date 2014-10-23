@@ -21,7 +21,9 @@ import java.util.Scanner;
 public class main {
     //private static SuperNodo nSuperNodo;
     private static SuperNodo nSuperNodo;
-    private static final List<SuperNodo> SuperNodos = new ArrayList();  
+    private static final List<SuperNodo> SuperNodos = new ArrayList();
+ 
+    
     public static void main(String args[]) throws IOException {
         int decisao;
         boolean saida = false;
@@ -40,9 +42,9 @@ public class main {
            // nSuperNodo = new SuperNodo(id);
             nSuperNodo = new SuperNodo(id);
             SuperNodos.add(nSuperNodo); //preciso arrumar isso! nao estou conseguindo adicionar            
-            System.out.println("SuperNodo Criado! ID: " + SuperNodos.iterator()); //quero printar o valor do ID do SuperNodo
-            System.out.println("SuperNodo Criado! ID: " + id);
-            nSuperNodo.start();
+            System.out.println("SuperNodo Criado! ID: " + SuperNodos.get(id).getId()); //quero printar o valor do ID do SuperNodo
+            //System.out.println("SuperNodo Criado! ID: " + id);
+            SuperNodos.get(id).start();
         }
         //Sai da Aplicacao e fecha todas as conexoes
         else{
@@ -51,6 +53,9 @@ public class main {
         }
         
         }
+        
+        
+        
         
         System.exit(0);
             
