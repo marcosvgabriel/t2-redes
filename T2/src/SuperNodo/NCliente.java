@@ -29,9 +29,13 @@ public class NCliente extends Thread{
     public void run()
     {
         try {
-            while(!saida)
-        }
-        catch(IOException ioex)
+            while(!saida){
+                
+            }
+                
+                
+                
+        }catch(IOException ioex)
         {
             
         }
