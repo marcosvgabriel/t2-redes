@@ -1,4 +1,4 @@
-import java.util.sortedMap;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class ConsistentHash<T> {
