@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Scanner;
 
 /**
  *
@@ -18,13 +19,15 @@ import java.util.logging.Logger;
 
 //Main para Conexao do Cliente
 public class Cliente {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException, IOException {
         String numeroIP = null;
         int numeroPorta = 6601;
         String opcao = "9";
         String caminho = "";
         String sinal;
-        String nome_arq = "";
+        String nome_arq;
+        String nome_arquivoLido;
+        String nova;
         boolean conectou = false;
         boolean saida = false;
         Socket superNodoConex = null;
@@ -95,6 +98,16 @@ public class Cliente {
                 }
                 
                 //Lembrar de Cortar String para Pegar nome do arquivo
+                //Se for sempre o mesmo caminho:
+                BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));  
+                nome_arquivoLido = buf.readLine();
+                nome_arq = nome_arquivoLido.substring(19, (nome_arquivoLido.length()-2)); //supondo que 19 seja onde acaba a string referente ao diretorio
+                          
+                //Se não for sempre o mesmo caminho:
+                
+                //?            
+                
+                
                 //Calcular qual no sera responsavel pelo arquivo
                 
                 int hash = nome_arq.hashCode()%51;
@@ -121,6 +134,11 @@ public class Cliente {
             break;
             case 2:
                 //Dowload
+                
+                
+                
+                
+                
                 
             break;    
             case 0:
