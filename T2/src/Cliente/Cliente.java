@@ -42,8 +42,13 @@ public class Cliente {
         boolean conectou = false;
         boolean saida = false;
         Socket superNodoConex = null;
-        DHT dhtCliente;     
+        DHT dhtCliente;
         
+        /*dhtCliente = new DHT();
+        for(int i=0;i<10;i++){
+            dhtCliente.adicionaArq(File arquivo(i));
+        } */
+       
         while(!conectou && !saida){
             System.out.println("Digite o número IP do SuperNodo que deseja Conectar");
             BufferedReader nIP = new BufferedReader(new InputStreamReader(System.in));   
@@ -113,9 +118,9 @@ public class Cliente {
                 //Se for sempre o mesmo caminho:
                 BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));  
                 nome_arquivoLidoUpload = buf.readLine();
-                nome_arq = nome_arquivoLidoUpload.substring(19, (nome_arquivoLidoUpload.length()-2)); //supondo que 19 seja onde acaba a string referente ao diretorio
-                          
-                //Se não for sempre o mesmo caminho:
+                nome_arq = nome_arquivoLidoUpload.substring(19, (nome_arquivoLidoUpload.length()-2)); 
+                //supondo que 19 seja onde acaba a string referente ao diretorio fixo. Falta recortar o .zip do nome (existe necessidade?)
+           
                 
                 //?            
                 
@@ -125,8 +130,7 @@ public class Cliente {
                 int hashU = nome_arq.hashCode()%51;
                 System.out.println("O nome do Arquivo para fazer Upload e: " + nome_arq + "\n");
                 System.out.println("Seu codigo Hash e: " + hashU + "\n");
-                
-                
+                               
                 
                 try {
                 File arq_digitado = new File(caminho);
@@ -147,6 +151,13 @@ public class Cliente {
             break;
             case 2:
                 //Dowload
+                //funcao que exibe todos os arquivos presentes no sistema independente do Nodo;
+                System.out.println("Lista de Arquivos: \n");
+                for(int i=0;i< dhtCliente.getSize();i++){
+                    System.out.println(dhtCliente.getFiles(i)+ "\n");
+                }
+                
+                
                 System.out.println("Digite o nome arquivo para ser carregado: ");
                 BufferedReader nome_arquivoDownload = new BufferedReader(new InputStreamReader(System.in));   
         
@@ -180,14 +191,15 @@ public class Cliente {
                 //caminho = //retorno da funcao hash
                 File arq_digitado = new File(caminho);
                 
-                FileInputStream arq_envia = new FileInputStream(arq_digitado);
-                OutputStream infoSaida = superNodoConex.getOutputStream();
+                FileInputStream arq_recebe = new FileInputStream(arq_digitado);
+                OutputStream infoEntrada = superNodoConex.getOutputStream();
                 
                 for(int i = 0; i < arq_digitado.length(); i++){
-                    infoSaida.write(arq_envia.read());
+                    infoEntrada.read(arq_envia.write());
                 }
-                infoSaida.flush();
-                arq_envia.close();
+                
+                infoEntrada.flush();
+                arq_recebe.close();
                 
                
                         
